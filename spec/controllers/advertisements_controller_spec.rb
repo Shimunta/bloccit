@@ -1,7 +1,7 @@
 require 'rails_helper'
 include RandomData
 
-RSpec.describe AdvertisementController, type: :controller do
+RSpec.describe AdvertisementsController, type: :controller do
   let(:my_ad) {Advertisement.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: 10)}
 
   describe "GET #index" do
@@ -42,20 +42,17 @@ RSpec.describe AdvertisementController, type: :controller do
       expect(assigns(:advertisement)).not_to be_nil
     end
   end
+  describe "Advertisement Create" do
+    it "increases the number of advertisments by 1" do
+      expect{post :create, advertisement: {title: RandomData.random_sentence, body: RandomData.random_paragraph, price: 10}}.to change(Advertisement,:count).by(1)
+    end
+    it "assigns the new advertisement to @advertisement" do
+      post :create, advertisement: {title: RandomData.random_sentence, body: RandomData.random_paragraph, price: 10}
+      expect(assigns(:advertisement)).to eq Advertisement.last
+    end
+    it "redirect to the new advertisement" do
+      post :create, advertisement: {title: RandomData.random_sentence, body: RandomData.random_paragraph, price: 10}
+      expect(response).to redirect_to Advertisement.last
+    end
+  end
 end
-
-
-
-#  describe "GET #new" do
-#    it "returns http success" do
-#      get :new
-#      expect(response).to have_http_status(:success)
-#    end
-#  end
-#
-#  describe "GET #create" do
-#    it "returns http success" do
-#      get :create
-#      expect(response).to have_http_status(:success)
-#    end
-#
