@@ -1,0 +1,29 @@
+<h1>New Sponsored Post</h1>
+
+<div class="row">
+  <div class="col-md-8">
+    <p>Guidelines for Sponsored Posts</p>
+    <ul>
+      <li>You must over pay us</li>
+      <li>All transactions are final</li>
+      <li>Feel the burn</li>
+    </ul>
+  </div>
+  <div class="col-md-8">
+    <%= form_for [@topic, @sponsored_post] do |s| %>
+      <div class="form-group">
+        <%= s.label :title %>
+        <%= s.text_field :title, class: 'form-control', placeholder: 'Place Title here' %>
+      </div>
+      <div class="form-group">
+        <%= s.label :body %>
+        <%= s.text_area :body, rows: 8, class: 'form-control', placeholder: "Place Body here" %>
+      </div>
+      <div class="form-group">
+        <%= s.label :price %>
+        <%= s.number_field :price, rows: 8, class: 'number_field', placeholder: "$$$" %>
+      </div>
+      <%= s.submit "Save", class: 'btn btn-success' %>
+      <% end %>
+  </div>
+</div>
