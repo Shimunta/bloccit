@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   before_save { self.email = email.downcase }
+  before_save :fix_name
 
   validates :name, length: { minimum: 1, maximum: 100 }, presence: true
 
@@ -13,4 +14,14 @@ class User < ActiveRecord::Base
             length: { minimum: 3, maximum: 254 }
 
 has_secure_password
+
+def fix_name
+  if name
+    fixed_name = []
+    name.split.each do |names|
+      fixed_name << names.capitalize
+    end
+  self.name = fixed_name.join(" ")
+  end
+end
 end
