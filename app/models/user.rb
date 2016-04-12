@@ -17,11 +17,7 @@ has_secure_password
 
 def fix_name
   if name
-    fixed_name = []
-    name.split.each do |names|
-      fixed_name << names.capitalize
-    end
-  self.name = fixed_name.join(" ")
+    self.name = name.split.map(&:capitalize).join(" ")
   end
 end
 end
