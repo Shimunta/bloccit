@@ -64,8 +64,15 @@ end
   end
 
   def authorize_user
-    unless current_user.admin?
-      flash[:alert] = "You must be an admin to do that."
+    action = params['action']
+    if action == "new" && !current_user.admin?
+      flash[:alert] = "Go away"
+      redirect_to topics_path
+    elsif action == "create" && current_user.moderator? || current_user.member?
+      flash[:alert] = "Go away"
+      redirect_to topics_path
+    elsif action == "edit" && current_user.member?
+      flash[:alert] = "Go away"
       redirect_to topics_path
     end
   end
