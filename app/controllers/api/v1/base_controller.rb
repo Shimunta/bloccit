@@ -1,5 +1,5 @@
 class Api::V1::BaseController < ApplicationController
-  skip_before_action :very_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from ActionController::ParameterMissing, with: :malformed_request
